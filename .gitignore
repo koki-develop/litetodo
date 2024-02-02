@@ -1,3 +1,6 @@
+/todo.db
+
+# Terraform
 /terraform/terraform.tfvars
 /terraform/.terraform/
 /terraform/terraform.tfstate*
