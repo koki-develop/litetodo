@@ -1,5 +1,11 @@
 /todo.db
 
+# minio
+/data/storage/*
+!/data/storage/litetodo-db/
+/data/storage/litetodo-db/*
+!/data/storage/litetodo-db/.keep
+
 # Terraform
 /terraform/terraform.tfvars
 /terraform/.terraform/
