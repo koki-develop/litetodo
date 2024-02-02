@@ -1,5 +1,4 @@
 resource "google_cloud_run_v2_service" "main" {
-  provider = google-beta
   depends_on = [google_project_service.main]
 
   name = "${var.project}-app"
