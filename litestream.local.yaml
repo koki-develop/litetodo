@@ -1,0 +1,10 @@
+dbs:
+  - path: /data/todo.db
+    replicas:
+      - type: s3
+        endpoint: http://storage:9000
+        name: todo.db
+        bucket: litetodo-db
+        path: todo.db
+        access-key-id: minioadmin
+        secret-access-key: minioadmin

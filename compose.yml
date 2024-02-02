@@ -1,0 +1,51 @@
+services:
+  storage:
+    image: minio/minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - ./data/storage:/data
+    command: server /data --console-address ":9001"
+
+  restore:
+    depends_on:
+      - storage
+    build:
+      context: .
+      dockerfile: dockerfiles/litestream/restore/Dockerfile
+    environment:
+      LITESTREAM_ACCESS_KEY_ID: minioadmin
+      LITESTREAM_SECRET_ACCESS_KEY: minioadmin
+    volumes:
+      - ./data/db:/data
+      - ./litestream.local.yaml:/etc/litestream.yaml
+
+  replicate:
+    depends_on:
+      - restore
+    build:
+      context: .
+      dockerfile: dockerfiles/litestream/replicate/Dockerfile
+    environment:
+      LITESTREAM_ACCESS_KEY_ID: minioadmin
+      LITESTREAM_SECRET_ACCESS_KEY: minioadmin
+    volumes:
+      - ./data/db:/data
+      - ./litestream.local.yaml:/etc/litestream.yaml
+
+  app:
+    depends_on:
+      - replicate
+    build:
+      context: .
+      dockerfile: dockerfiles/app/Dockerfile
+    environment:
+      DB_PATH: /data/todo.db
+    ports:
+      - 8080:8080
+    volumes:
+      - ./data/db:/data
