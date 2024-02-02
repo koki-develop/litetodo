@@ -6,6 +6,9 @@
 /data/storage/litetodo-db/*
 !/data/storage/litetodo-db/.keep
 
+# db
+/data/db/
+
 # Terraform
 /terraform/terraform.tfvars
 /terraform/.terraform/
