@@ -1,9 +1,9 @@
 resource "google_cloud_run_v2_service" "main" {
   depends_on = [google_project_service.main]
 
-  name = "${var.project}-app"
+  name     = "${var.project}-app"
   location = var.region
-  ingress = "INGRESS_TRAFFIC_ALL"
+  ingress  = "INGRESS_TRAFFIC_ALL"
 
   template {
     service_account = google_service_account.app.email
@@ -13,7 +13,7 @@ resource "google_cloud_run_v2_service" "main" {
     }
 
     containers {
-      name = "app"
+      name  = "app"
       image = "${google_artifact_registry_repository.app.location}-docker.pkg.dev/${var.project}/${google_artifact_registry_repository.app.name}/app:latest"
       ports {
         container_port = 8080
