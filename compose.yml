@@ -15,8 +15,6 @@ services:
     depends_on:
       - storage
     build: .
-    environment:
-      DB_PATH: /data/todo.db
     ports:
       - 8080:8080
     volumes:

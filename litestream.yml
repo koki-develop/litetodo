@@ -1,5 +1,5 @@
 dbs:
-  - path: /data/todo.db
+  - path: /app/todo.db
     replicas:
       - type: gcs
         bucket: litetodo-db
