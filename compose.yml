@@ -11,41 +11,13 @@ services:
       - ./data/storage:/data
     command: server /data --console-address ":9001"
 
-  restore:
-    depends_on:
-      - storage
-    build:
-      context: .
-      dockerfile: dockerfiles/litestream/restore/Dockerfile
-    environment:
-      LITESTREAM_ACCESS_KEY_ID: minioadmin
-      LITESTREAM_SECRET_ACCESS_KEY: minioadmin
-    volumes:
-      - ./data/db:/data
-      - ./litestream.local.yaml:/etc/litestream.yaml
-
-  replicate:
-    depends_on:
-      - restore
-    build:
-      context: .
-      dockerfile: dockerfiles/litestream/replicate/Dockerfile
-    environment:
-      LITESTREAM_ACCESS_KEY_ID: minioadmin
-      LITESTREAM_SECRET_ACCESS_KEY: minioadmin
-    volumes:
-      - ./data/db:/data
-      - ./litestream.local.yaml:/etc/litestream.yaml
-
   app:
     depends_on:
-      - replicate
-    build:
-      context: .
-      dockerfile: dockerfiles/app/Dockerfile
+      - storage
+    build: .
     environment:
       DB_PATH: /data/todo.db
     ports:
       - 8080:8080
     volumes:
-      - ./data/db:/data
+      - ./litestream.local.yml:/etc/litestream.yml
