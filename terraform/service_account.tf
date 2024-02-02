@@ -1,5 +1,5 @@
 locals {
-  app_roles = []
+  app_roles = ["roles/storage.admin"]
 }
 
 resource "google_service_account" "app" {
