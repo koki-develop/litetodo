@@ -19,10 +19,12 @@ RUN go build -o app
 # ---
 
 FROM alpine:3.19
-
 WORKDIR /app
+
 COPY --from=builder /app/app ./
 COPY --from=builder /usr/local/bin/litestream /usr/local/bin/litestream
-COPY run.sh ./
+
+COPY docker/litestream.yml /etc/litestream.yml
+COPY docker/run.sh ./
 
 CMD ["/app/run.sh"]
