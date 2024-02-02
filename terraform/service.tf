@@ -1,6 +1,7 @@
 locals {
   services = [
     "artifactregistry.googleapis.com",
+    "run.googleapis.com",
   ]
 }
 
