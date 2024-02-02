@@ -40,7 +40,12 @@ func run() error {
 	 * Open database
 	 */
 
-	db, err := gorm.Open(sqlite.Open("./todo.db"), &gorm.Config{})
+	dbpath := os.Getenv("DB_PATH")
+	if dbpath == "" {
+		dbpath = "./todo.db"
+	}
+
+	db, err := gorm.Open(sqlite.Open(dbpath), &gorm.Config{})
 	if err != nil {
 		return fmt.Errorf("failed to open database: %w", err)
 	}
