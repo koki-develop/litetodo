@@ -14,7 +14,7 @@ resource "google_cloud_run_v2_service" "main" {
 
     containers {
       name  = "app"
-      image = "${google_artifact_registry_repository.app.location}-docker.pkg.dev/${var.project}/${google_artifact_registry_repository.app.name}/app:latest"
+      image = "${google_artifact_registry_repository.main.location}-docker.pkg.dev/${var.project}/${google_artifact_registry_repository.main.name}/app:latest"
       ports {
         container_port = 8080
       }
