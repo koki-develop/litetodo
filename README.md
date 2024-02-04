@@ -43,3 +43,6 @@ $ curl http://localhost:8080/tasks/1 \
     -X DELETE
 ```
 
+# LICENSE
+
+[MIT](./LICENSE)
